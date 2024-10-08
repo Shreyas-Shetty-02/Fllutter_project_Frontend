@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/zoology/zoology.dart';
 
 class ZoologyController extends GetxController {
-  Rx<Zoology> biotechModelObj = const Zoology().obs;
+  Rx<Zoology> zoologyModelObj = const Zoology().obs;
   RxBool canPop = false.obs;
 
   @override

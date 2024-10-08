@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/computer%20science/computer_science.dart';
 
 class CSController extends GetxController {
-  Rx<CS> biotechModelObj = const CS().obs;
+  Rx<CS> csModelObj = const CS().obs;
   RxBool canPop = false.obs;
 
   @override

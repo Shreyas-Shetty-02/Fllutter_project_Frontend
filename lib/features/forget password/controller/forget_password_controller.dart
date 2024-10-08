@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/forget%20password/forget_password.dart';
 
 class ForgetPasswordController extends GetxController {
-  Rx<ForgetPassword> biotechModelObj = const ForgetPassword().obs;
+  Rx<ForgetPassword> forgetPasswordModelObj = const ForgetPassword().obs;
   RxBool canPop = false.obs;
 
   @override

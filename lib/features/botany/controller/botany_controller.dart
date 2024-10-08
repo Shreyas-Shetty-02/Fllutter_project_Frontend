@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/botany/botany.dart';
 
 class BotanyController extends GetxController {
-  Rx<Botany> biotechModelObj = const Botany().obs;
+  Rx<Botany> botanyModelObj = const Botany().obs;
   RxBool canPop = false.obs;
 
   @override

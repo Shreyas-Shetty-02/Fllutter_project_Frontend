@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/physics/physics.dart';
 
 class PhysicsController extends GetxController {
-  Rx<Physics> biotechModelObj = const Physics().obs;
+  Rx<Physics> physicsModelObj = const Physics().obs;
   RxBool canPop = false.obs;
 
   @override

@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/login/login.dart';
 
 class LoginController extends GetxController {
-  Rx<Login> biotechModelObj = const Login().obs;
+  Rx<Login> loginModelObj = const Login().obs;
   RxBool canPop = false.obs;
 
   @override

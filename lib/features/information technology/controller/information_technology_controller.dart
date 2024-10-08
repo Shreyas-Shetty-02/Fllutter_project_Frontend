@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/information%20technology/information_technology.dart';
 
 class ITController extends GetxController {
-  Rx<IT> biotechModelObj = const IT().obs;
+  Rx<IT> itModelObj = const IT().obs;
   RxBool canPop = false.obs;
 
   @override

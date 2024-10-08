@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:purchase_inventory/features/chemistry/chemistry.dart';
 
 class ChemistryController extends GetxController {
-  Rx<Chemistry> biotechModelObj = const Chemistry().obs;
+  Rx<Chemistry> chemistryModelObj = const Chemistry().obs;
   RxBool canPop = false.obs;
 
   @override
