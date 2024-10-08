@@ -9,6 +9,8 @@ import 'package:purchase_inventory/features/dashboard/binding/dashboard_binding.
 import 'package:purchase_inventory/features/login/binding/login_binding.dart';
 import 'package:purchase_inventory/features/mathematics/binding/mathematics_binding.dart';
 import 'package:purchase_inventory/features/physics/binding/physics_binding.dart';
+import 'package:purchase_inventory/features/sign%20up/binding/sign_up_binding.dart';
+import 'package:purchase_inventory/features/sign%20up/sign_up.dart';
 import 'package:purchase_inventory/features/zoology/binding/zoology_binding.dart';
 import 'package:purchase_inventory/features/biotech/biotech.dart';
 import 'package:purchase_inventory/features/chemistry/chemistry.dart';
@@ -27,6 +29,7 @@ class MyRoutes {
   static const String initialRoute = '/initialRoute';
   static String dashboardRoute = "/Dashboard";
   static String loginRoute = "/Login";
+  static String signUpRoute = "/SignUp";
   static String botanyRoute = "/Botany";
   static String zoologyRoute = "/Zoology";
   static String physicsRoute = "/Physics";
@@ -40,9 +43,9 @@ class MyRoutes {
   static List<GetPage> pages = [
     GetPage(
       name: initialRoute,
-      page: () => const Login(),
+      page: () => const SignUp(),
       bindings: [
-        LoginBinding(),
+        SignUpBinding(),
       ],
     ),
     GetPage(
@@ -57,6 +60,13 @@ class MyRoutes {
       page: () => const Login(),
       bindings: [
         LoginBinding(),
+      ],
+    ),
+    GetPage(
+      name: signUpRoute,
+      page: () => const SignUp(),
+      bindings: [
+        SignUpBinding(),
       ],
     ),
     GetPage(
@@ -148,6 +158,10 @@ void onTapIT() {
 
 void onTapLogin() {
   Get.offAllNamed(MyRoutes.loginRoute);
+}
+
+void onTapSignUp() {
+  Get.offAllNamed(MyRoutes.signUpRoute);
 }
 
 void onTapMaths() {

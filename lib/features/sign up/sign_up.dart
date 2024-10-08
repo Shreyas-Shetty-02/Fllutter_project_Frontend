@@ -123,7 +123,7 @@ class _SignUpState extends State<SignUp> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: onTapDashboard,
+                          onPressed: onTapLogin,
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             backgroundColor: const Color(0xFFFCD535),
