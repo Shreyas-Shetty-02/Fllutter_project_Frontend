@@ -43,7 +43,7 @@ class MyRoutes {
   static List<GetPage> pages = [
     GetPage(
       name: initialRoute,
-      page: () => const SignUp(),
+      page: () => const Login(),
       bindings: [
         SignUpBinding(),
       ],

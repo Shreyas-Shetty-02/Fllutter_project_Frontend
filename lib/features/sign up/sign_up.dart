@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:purchase_inventory/models/api.dart';
 import 'package:purchase_inventory/utlis/routes.dart';
+
+TextEditingController _emailController = TextEditingController();
+TextEditingController _nameController = TextEditingController();
+TextEditingController _passwordController = TextEditingController();
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -9,7 +16,24 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool _obscurePassword = true; // Add a variable to track password visibility
+
   @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _nameController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -62,6 +86,28 @@ class _SignUpState extends State<SignUp> {
                       ),
                       const SizedBox(height: 50),
                       TextFormField(
+                        controller: _nameController,
+                        cursorColor: const Color(0xFFD9D9D9),
+                        style: const TextStyle(
+                          color: Color(0xFFD9D9D9),
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                            color: Color(0xBED9D9D9),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xBED9D9D9)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFFFCD535)),
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _emailController,
                         cursorColor: const Color(0xFFD9D9D9),
                         style: const TextStyle(
                           color: Color(0xFFD9D9D9),
@@ -81,23 +127,41 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      // Password field with show/hide functionality
                       TextFormField(
+                        controller: _passwordController,
                         cursorColor: const Color(0xFFD9D9D9),
+                        obscureText: _obscurePassword, // Toggle obscure text
                         style: const TextStyle(
                           color: Color(0xFFD9D9D9),
                         ),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Password',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Color(0xBED9D9D9),
                           ),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xBED9D9D9)),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFFFCD535)),
                           ),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
+                          // Add the eye icon to toggle password visibility
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: const Color(0xFFD9D9D9),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword =
+                                    !_obscurePassword; // Toggle obscure text
+                              });
+                            },
+                          ),
                         ),
                       ),
                       Row(
@@ -137,6 +201,25 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
+                      // const SizedBox(height: 30),
+                      // // Sign in Button
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: ElevatedButton(
+                      //     onPressed: onTapLogin,
+                      //     style: ElevatedButton.styleFrom(
+                      //       padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      //       backgroundColor: const Color(0xFFFCD535),
+                      //     ),
+                      //     child: const Text(
+                      //       'Sign In',
+                      //       style: TextStyle(
+                      //           fontSize: 24,
+                      //           fontWeight: FontWeight.w500,
+                      //           color: Color(0xFF181A20)),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -146,5 +229,38 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void onTapLogin() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    String name =
+        _nameController.text; // Optional: Add a TextField to collect user name
+
+    APIService apiService = APIService();
+    Map<String, dynamic>? result =
+        await apiService.registerUser(name, email, password);
+
+    if (result != null && result["message"] == "Registered successfully") {
+      Get.snackbar(
+        "Sign Up Successful",
+        "Your account has been registered successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+      Get.offAllNamed(MyRoutes
+          .loginRoute); // Navigate to dashboard after successful sign-up
+    } else {
+      Get.snackbar(
+        "Sign Up Failed",
+        result?['message'] ?? 'An error occurred',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+    }
   }
 }
