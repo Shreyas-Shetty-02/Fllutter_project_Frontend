@@ -98,63 +98,207 @@ class MyRoutes {
     ),
     GetPage(
       name: signUpRoute,
-      page: () => const SignUp(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const SignUp();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         SignUpBinding(),
       ],
     ),
     GetPage(
       name: botanyRoute,
-      page: () => const Botany(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Botany();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         BotanyBinding(),
       ],
     ),
     GetPage(
       name: zoologyRoute,
-      page: () => const Zoology(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Zoology();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         ZoologyBinding(),
       ],
     ),
     GetPage(
       name: physicsRoute,
-      page: () => const Physics(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Physics();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         PhysicsBinding(),
       ],
     ),
     GetPage(
       name: chemistryRoute,
-      page: () => const Chemistry(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Chemistry();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         ChemistryBinding(),
       ],
     ),
     GetPage(
       name: biotechRoute,
-      page: () => const Biotech(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Biotech();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         BiotechBinding(),
       ],
     ),
     GetPage(
       name: mathematicsRoute,
-      page: () => const Mathematics(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const Mathematics();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         MathematicsBinding(),
       ],
     ),
     GetPage(
       name: itRoute,
-      page: () => const IT(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const IT();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         ITBinding(),
       ],
     ),
     GetPage(
       name: csRoute,
-      page: () => const CS(),
+      page: () {
+        const storage = FlutterSecureStorage();
+        return FutureBuilder<String?>(
+          future: storage.read(key: "email"),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading email'));
+            } else if (snapshot.data == null) {
+              return const CS();
+            } else {
+              return const Login();
+            }
+          },
+        );
+      },
       bindings: [
         CSBinding(),
       ],
