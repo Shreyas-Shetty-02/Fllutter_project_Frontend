@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -5,6 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:purchase_inventory/custom_widgets/date_textfield.dart';
 import 'package:purchase_inventory/custom_widgets/textfield.dart';
 import 'package:purchase_inventory/models/api.dart';
+import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:html' as html; // For web-specific functionality
+import 'dart:io' as io; // For non-web platforms
 
 class ChemicalDataTable extends StatefulWidget {
   final String department;
@@ -111,7 +118,63 @@ class _ChemicalDataTableState extends State<ChemicalDataTable> {
     );
   }
 
-  void exportData() {}
+  void exportData() async {
+    var data = await APIService().downloadCSV(widget.department, "chemical");
+
+    if (data == null || data["details"] == null) {
+      Get.snackbar(
+        'Error',
+        'Failed to retrieve data.',
+        backgroundColor: const Color(0x7EBB2124),
+        colorText: Colors.white,
+        margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      );
+      return;
+    }
+
+    var details = data["details"];
+    List<List<dynamic>> csvData = [];
+    for (var detail in details) {
+      csvData.add([
+        detail["id"].toString(),
+        detail["name"],
+        detail["grade"],
+        detail["rate"].toString(),
+        detail["quantity"].toString(),
+        detail["total_cost"].toString(),
+        detail["discounted_cost"].toString(),
+        DateFormat('dd-MM-yyyy')
+            .format(DateTime.parse(detail["date_of_order"])),
+        DateFormat('dd-MM-yyyy')
+            .format(DateTime.parse(detail["date_of_delivery"])),
+        detail["remarks"],
+        detail["ordered_by"]
+      ]);
+    }
+
+    // Convert the list to CSV format
+    String csv = const ListToCsvConverter().convert(csvData);
+
+    // Handle web and non-web separately
+    if (kIsWeb) {
+      // For web, download the file as a blob
+      final bytes = utf8.encode(csv);
+      final blob = html.Blob([bytes], 'text/csv');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      html.Url.revokeObjectUrl(url);
+    } else {
+      // For mobile/desktop, use path_provider and File to save the CSV
+      final directory = await getApplicationDocumentsDirectory();
+      final path = "${directory.path}/${widget.department}_chemical.csv";
+      final file = io.File(path);
+
+      // Write the CSV to a file
+      await file.writeAsString(csv);
+
+      // Share or download the file
+      Share.shareFiles([file.path], text: 'Download Chemical Data CSV');
+    }
+  }
 
   void getData() async {
     var data = await APIService().getDetails(widget.department, "chemical");

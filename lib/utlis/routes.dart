@@ -108,9 +108,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const SignUp();
-            } else {
               return const Login();
+            } else {
+              return const SignUp();
             }
           },
         );
@@ -131,9 +131,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Botany();
-            } else {
               return const Login();
+            } else {
+              return const Botany();
             }
           },
         );
@@ -154,9 +154,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Zoology();
-            } else {
               return const Login();
+            } else {
+              return const Zoology();
             }
           },
         );
@@ -177,9 +177,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Physics();
-            } else {
               return const Login();
+            } else {
+              return const Physics();
             }
           },
         );
@@ -200,9 +200,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Chemistry();
-            } else {
               return const Login();
+            } else {
+              return const Chemistry();
             }
           },
         );
@@ -223,9 +223,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Biotech();
-            } else {
               return const Login();
+            } else {
+              return const Biotech();
             }
           },
         );
@@ -246,9 +246,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const Mathematics();
-            } else {
               return const Login();
+            } else {
+              return const Mathematics();
             }
           },
         );
@@ -269,9 +269,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const IT();
-            } else {
               return const Login();
+            } else {
+              return const IT();
             }
           },
         );
@@ -292,9 +292,9 @@ class MyRoutes {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading email'));
             } else if (snapshot.data == null) {
-              return const CS();
-            } else {
               return const Login();
+            } else {
+              return const CS();
             }
           },
         );

@@ -1,7 +1,10 @@
+import 'dart:html' as html; // For web-specific functionality
 import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io'; // For non-web platform file handling
+import 'package:path_provider/path_provider.dart';
 
 class APIService {
   final String baseUrl = "http://127.0.0.1:8000"; // Use your local IP address
@@ -316,6 +319,58 @@ class APIService {
       }
     } catch (error) {
       print('Login failed: $error');
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> downloadCSV(
+      String department, String type) async {
+    final String url = "$baseUrl/export_csv";
+    const storage = FlutterSecureStorage();
+    var email = await storage.read(key: "email");
+    var password = await storage.read(key: "password");
+
+    // Prepare the request payload
+    final payload = {
+      "email": email,
+      "password": password,
+      "department": department,
+      "type": type,
+    };
+
+    // Send the request
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(payload),
+    );
+
+    if (response.statusCode == 200) {
+      String csvFileName = '${department}_${type}.csv';
+      if (kIsWeb) {
+        // Handle web response
+        final bytes = response.bodyBytes;
+        final blob = html.Blob([bytes], 'text/csv');
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        // Create the download link
+        // ignore: unused_local_variable
+        final anchor = html.AnchorElement(href: url)
+          ..setAttribute('download', csvFileName)
+          ..click();
+        html.Url.revokeObjectUrl(url);
+        print('File downloaded successfully as $csvFileName.');
+      } else {
+        // Handle mobile/desktop response
+        final directory = await getApplicationDocumentsDirectory();
+        final filePath = '${directory.path}/$csvFileName';
+
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+        print('File saved to $filePath');
+      }
+      return jsonDecode(response.body);
+    } else {
+      print('Failed to download the file. Status code: ${response.statusCode}');
       return null;
     }
   }
